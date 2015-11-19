@@ -1,0 +1,32 @@
+html,body{
+	height:100%;
+	display: block;
+}
+
+.mainBody{
+	height: 600px;
+	//background-color: yellow;
+
+	.messageBody{
+		height: 500px;
+		background-color: azure;
+		border: 1px solid rgba(0, 0, 0, .2);
+		overflow: scroll;
+	}
+
+	.messageInput{
+		height: 100px;
+	}
+
+	.messages{
+		font-size: 22px;
+		//color: white;
+		background-color: #ccffff;
+		margin: 10px;
+		border: 1px solid rgba(0, 0, 0, .1);
+		border-radius: 15px;
+		padding: 5px;
+		//display: inline-block;
+	}
+}
+
