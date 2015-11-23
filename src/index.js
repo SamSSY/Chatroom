@@ -13,6 +13,7 @@ const AppBar = require('material-ui/lib/app-bar');
 const TextField = require('material-ui/lib/text-field');
 const FlatButton = require('material-ui/lib/flat-button');
 const Snackbar = require('material-ui/lib/snackbar');
+const Avatar = require('material-ui/lib/avatar');
 
 const injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -34,7 +35,9 @@ const initialState = {
     messages : [],
     propValue : null,
     username : null,
-    autoHideDuration: 1000
+    userID: null,
+    autoHideDuration: 1000,
+    userProfilePicUrl: null
 }
 
 
@@ -92,6 +95,7 @@ class ChatBody extends React.Component {
 		    //
 		    // These three cases are handled in the callback function.
 		    FB.getLoginStatus(function(response) {
+		      console.log("first check");
 		      this.statusChangeCallback(response);
 		    }.bind(this));
 
@@ -105,9 +109,7 @@ class ChatBody extends React.Component {
 	        	}
 	    	}.bind(this)
 		);
-
-
-		  }.bind(this);
+	}.bind(this);
 
 		  // Load the SDK asynchronously
 		  (function(d, s, id) {
@@ -122,8 +124,10 @@ class ChatBody extends React.Component {
     testAPI() {
 	  	console.log('Welcome!  Fetching your information.... ');
 	  	FB.api('/me', function(response) {
-	  		console.log('Successful login for: ' + response.name);
-	  		this.setState({username: response.name});
+	  		console.log(response);
+	  		console.log('Successful login for: ' + response.name + " id: " + response.id);
+	  		this.setState({username: response.name, userID: response.id});
+
 		}.bind(this));
 	}
 	// This is called with the results from from FB.getLoginStatus().
@@ -137,6 +141,9 @@ class ChatBody extends React.Component {
 		if (response.status === 'connected') {
 		    // Logged into your app and Facebook.
 		    this.testAPI();
+	  	  	this.refs.loginDialog.dismiss();
+
+
 		} else if (response.status === 'not_authorized') {
 		  	console.log("user not authorized.");
 		} else {
@@ -159,9 +166,14 @@ class ChatBody extends React.Component {
 
 	renderMessages(content, index){
 
-    	var str = `${content.username} : ${content.message}` ;		
+    	var str = `${content.username} : ${content.message}` ;	
+    	if( this.state.userProfilePicUrl == null){
+    		this._getUserProfilePic();
+    	}
 		return(
     		<div className = "messagesContainer" key={index}>
+    			<Avatar className = "userProfilePic"  src={this.state.userProfilePicUrl} />
+
     			<div className = "messages">
     				{str}
     			</div>
@@ -194,13 +206,16 @@ class ChatBody extends React.Component {
 	_onDialogSubmit(){
 		let username = this.refs.userNameInput.getValue();
 		this.setState({username: username});
-		//console.log(this.state.username);
+		//TODO: define callback function
+		this.refs.loginDialog.dismiss();
 	}
 
 	_handleLoginEnterKeyDown(){
 		let username = this.refs.userNameInput.getValue();
 		this.setState({username: username});
 		console.log(this.state.username);
+		//TODO: define callback function
+		this.refs.loginDialog.dismiss();
 	}
 
 	_handleAction(){
@@ -213,6 +228,22 @@ class ChatBody extends React.Component {
 			return false;
 		} 
 		else return true;
+	}
+
+	_getUserProfilePic(){
+
+		console.log("getUserProfilePic");
+		let queryStr = `/${this.state.userID}/picture`;
+		console.log(queryStr);
+		// API call
+		FB.api(queryStr, function (response) {
+		      if (response && !response.error) {
+				    //console.log(response);
+		     		this.setState({userProfilePicUrl: response.data.url});
+		      }
+		    }.bind(this)
+		);
+
 	}
 
 

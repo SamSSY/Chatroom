@@ -7,22 +7,32 @@ html,body{
 	height: 600px;
 	//background-color: yellow;
 
-	.messageBody{
+	& .messageBody{
 		height: 400px;
 		background-color: azure;
 		border: 1px solid rgba(0, 0, 0, .2);
 		overflow: scroll;
 	}
 
-	.messageInput{
+	& .messageInput{
 		height: 100px;
 	}
 
-	.messagesContainer{
+	& .messagesContainer{
 
 		display: block;
+		height: 50px;
+		line-height: 50px;
+		margin: 5px;
 
-		.messages{
+		& img{
+			vertical-align: middle;
+		}
+
+		& .messages{
+			height:30px;
+			line-height: 30px;
+			vertical-align: middle;
 			font-size: 22px;
 			display: inline-block;
 			background-color: #ccffff;
