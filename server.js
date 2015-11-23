@@ -41,7 +41,7 @@ io.sockets.on('connection', function (socket) {
 	    console.log("!!!");
 	    socket.broadcast.emit('new message', {
 	        message: data.message,
-	        //username: data.username
+	        username: data.username
 
 	    });
     });

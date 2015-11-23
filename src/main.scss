@@ -8,7 +8,7 @@ html,body{
 	//background-color: yellow;
 
 	.messageBody{
-		height: 500px;
+		height: 400px;
 		background-color: azure;
 		border: 1px solid rgba(0, 0, 0, .2);
 		overflow: scroll;
@@ -18,15 +18,19 @@ html,body{
 		height: 100px;
 	}
 
-	.messages{
-		font-size: 22px;
-		//color: white;
-		background-color: #ccffff;
-		margin: 10px;
-		border: 1px solid rgba(0, 0, 0, .1);
-		border-radius: 15px;
-		padding: 5px;
-		//display: inline-block;
+	.messagesContainer{
+
+		display: block;
+
+		.messages{
+			font-size: 22px;
+			display: inline-block;
+			background-color: #ccffff;
+			margin: 7px;
+			border: 1px solid rgba(0, 0, 0, .1);
+			border-radius: 15px;
+			padding: 5px;
+		}
 	}
 }
 
