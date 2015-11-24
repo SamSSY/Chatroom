@@ -77,7 +77,7 @@ class ChatBody extends React.Component {
 
     	  window.fbAsyncInit = function() {
 		    FB.init({
-		      appId      : 1046083068775644,//1521012484886298,
+		      appId      : 1057383754306127,
 		      cookie     : true,  // enable cookies to allow the server to access the session
 		      xfbml      : true,  // parse social plugins on this page
 		      version    : 'v2.5' // use version 2.5
