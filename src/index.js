@@ -197,7 +197,7 @@ class ChatBody extends React.Component {
 		if( this.state.userProfilePicUrl == null){
     		this._getUserProfilePic();
     	}
-		if( this._userLoginCheck() && this.state.userProfilePicUrl !== null){
+		if( this._userLoginCheck()){
 			let text = this.refs.textInput.getValue();
 			console.log('user input: ' + text);
 			this.refs.textInput.clearValue();
