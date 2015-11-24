@@ -32,6 +32,13 @@ app.get('/', function (req, res) {
   });
 });
 
+app.get('/policy', function (req, res) {
+  console.log("privacy policy");
+  fs.readFile('privacy-policy.html', function(err, buf) {
+    res.send(buf.toString());
+  });
+});
+
 
 io.sockets.on('connection', function (socket) {
 	console.log("socket!");
