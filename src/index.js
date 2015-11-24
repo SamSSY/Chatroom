@@ -106,6 +106,7 @@ class ChatBody extends React.Component {
 	            	// a user has logged in
 	            	console.log("login! ");
 	            	this.checkLoginState();
+	            	this._getUserProfilePic();
 	        	}
 	    	}.bind(this)
 		);
@@ -142,6 +143,8 @@ class ChatBody extends React.Component {
 		    // Logged into your app and Facebook.
 		    this.testAPI();
 	  	  	this.refs.loginDialog.dismiss();
+	  	  	this._getUserProfilePic();
+
 
 		} else if (response.status === 'not_authorized') {
 		  	console.log("user not authorized.");
@@ -191,7 +194,10 @@ class ChatBody extends React.Component {
 		const {messages} = this.state;
 		console.log(this.state.messages);
 		console.log("enter key down!");
-		if( this._userLoginCheck() ){
+		if( this.state.userProfilePicUrl == null){
+    		this._getUserProfilePic();
+    	}
+		if( this._userLoginCheck() && this.state.userProfilePicUrl !== null){
 			let text = this.refs.textInput.getValue();
 			console.log('user input: ' + text);
 			this.refs.textInput.clearValue();
