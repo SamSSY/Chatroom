@@ -66,11 +66,11 @@ class ChatBody extends React.Component {
     componentDidMount(){
 
     	socket.on('new message', function (data) {
-    		console.log("!!!!!!");
     		console.log(data);
     		const {messages} = this.state;
     		console.log(this.state);
     		messages.push(data);
+    		// message { message, username }
     		this.setState({messages: messages});
     	}.bind(this));
 
@@ -143,7 +143,6 @@ class ChatBody extends React.Component {
 		    this.testAPI();
 	  	  	this.refs.loginDialog.dismiss();
 
-
 		} else if (response.status === 'not_authorized') {
 		  	console.log("user not authorized.");
 		} else {
@@ -170,9 +169,12 @@ class ChatBody extends React.Component {
     	if( this.state.userProfilePicUrl == null){
     		this._getUserProfilePic();
     	}
+    	//console.log(content.userPicUrl);
+    	//console.log(this.state.userProfilePicUrl);
+
 		return(
     		<div className = "messagesContainer" key={index}>
-    			<Avatar className = "userProfilePic"  src={this.state.userProfilePicUrl} />
+    			<Avatar className = "userProfilePic"  src={content.userPicUrl} />
 
     			<div className = "messages">
     				{str}
@@ -193,9 +195,10 @@ class ChatBody extends React.Component {
 			let text = this.refs.textInput.getValue();
 			console.log('user input: ' + text);
 			this.refs.textInput.clearValue();
-			messages.push({"message": text, "username": this.state.username});
+			// message { message, username }
+			messages.push({"message": text, "username": this.state.username, "userPicUrl": this.state.userProfilePicUrl});
 			this.setState({ messages: messages});
-			socket.emit('new message', {"message": text, "username": this.state.username});
+			socket.emit('new message', {"message": text, "username": this.state.username, "userPicUrl": this.state.userProfilePicUrl});
 		}
 	}
 

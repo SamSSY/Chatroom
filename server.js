@@ -38,11 +38,10 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('new message', function (data) {
 	    // we tell the client to execute 'new message'
-	    console.log("!!!");
 	    socket.broadcast.emit('new message', {
 	        message: data.message,
-	        username: data.username
-
+	        username: data.username,
+	        userPicUrl: data.userPicUrl 
 	    });
     });
 
