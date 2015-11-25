@@ -78,7 +78,7 @@ class ChatBody extends React.Component {
     	  window.fbAsyncInit = function() {
 		    FB.init({
 		      appId      : 1057383754306127,
-		      cookie     : true,  // enable cookies to allow the server to access the session 1057383754306127
+		      cookie     : true,  // enable cookies to allow the server to access the session 1057383754306127/ 1521012484886298
 		      xfbml      : true,  // parse social plugins on this page
 		      version    : 'v2.5' // use version 2.5
 		    });
@@ -120,6 +120,7 @@ class ChatBody extends React.Component {
 		    js.src = "//connect.facebook.net/en_US/sdk.js";
 		    fjs.parentNode.insertBefore(js, fjs);
 		  }(document, 'script', 'facebook-jssdk'));
+
     }
 
     testAPI() {
@@ -173,13 +174,11 @@ class ChatBody extends React.Component {
     	if( this.state.userProfilePicUrl == null){
     		this._getUserProfilePic();
     	}
-    	//console.log(content.userPicUrl);
-    	//console.log(this.state.userProfilePicUrl);
+    	this._updateScroll();
 
 		return(
     		<div className = "messagesContainer" key={index}>
     			<Avatar className = "userProfilePic"  src={content.userPicUrl} />
-
     			<div className = "messages">
     				{str}
     			</div>
@@ -253,12 +252,11 @@ class ChatBody extends React.Component {
 		      }
 		    }.bind(this)
 		);
-
 	}
-
 
 	renderUserLoginAlertSnackBar () {
 		console.log("renderUserLoginAlertSnackBar");
+		if(this.state.messages.length > 0) setTimeout(this._updateScroll, 500); 
 		return(
 			<Snackbar
 			  message="Please login first."
@@ -266,6 +264,12 @@ class ChatBody extends React.Component {
 			  autoHideDuration={this.state.autoHideDuration}
 			  onActionTouchTap={this._handleAction}/>
 		);
+	}
+
+	_updateScroll(){
+			//$(".messageBody").animate({scrollTop : $(".messageBody")[0].scrollHeight}, 300) ;
+			//$(".messageBody").scrollTop($(".messageBody")[0].scrollHeight) ;
+			$(".messageBody")[0].scrollTop = $(".messageBody")[0].scrollHeight;
 	}
 
     render() {
