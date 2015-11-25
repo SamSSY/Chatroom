@@ -78,7 +78,7 @@ class ChatBody extends React.Component {
     	  window.fbAsyncInit = function() {
 		    FB.init({
 		      appId      : 1057383754306127,
-		      cookie     : true,  // enable cookies to allow the server to access the session
+		      cookie     : true,  // enable cookies to allow the server to access the session 1057383754306127
 		      xfbml      : true,  // parse social plugins on this page
 		      version    : 'v2.5' // use version 2.5
 		    });
@@ -128,6 +128,7 @@ class ChatBody extends React.Component {
 	  		console.log(response);
 	  		console.log('Successful login for: ' + response.name + " id: " + response.id);
 	  		this.setState({username: response.name, userID: response.id});
+	  		this._getUserProfilePic();
 
 		}.bind(this));
 	}
